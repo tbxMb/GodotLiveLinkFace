@@ -18,16 +18,10 @@ _global_script_classes=[ {
 "class": "LiveLinkFaceServer",
 "language": "GDScript",
 "path": "res://live_link/server.gd"
-}, {
-"base": "Reference",
-"class": "blendshape_map",
-"language": "GDScript",
-"path": "res://live_link/blendshape_keys.gd"
 } ]
 _global_script_class_icons={
 "LiveLinkFace": "",
-"LiveLinkFaceServer": "res://llf_icon.svg",
-"blendshape_map": ""
+"LiveLinkFaceServer": "res://llf_icon.svg"
 }
 
 [application]
@@ -58,4 +52,3 @@ quality/depth_prepass/enable=false
 quality/filters/msaa=2
 quality/filters/use_fxaa=true
 quality/filters/use_debanding=true
-environment/default_environment="res://test/default_env.tres"

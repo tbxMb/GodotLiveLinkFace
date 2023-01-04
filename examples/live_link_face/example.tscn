@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://live_link/server.gd" type="Script" id=1]
+[ext_resource path="res://examples/live_link_face/duck.glb" type="PackedScene" id=2]
+[ext_resource path="res://examples/live_link_face/duck.gd" type="Script" id=3]
+[ext_resource path="res://llf_icon.svg" type="Texture" id=4]
+
+[sub_resource type="ProceduralSky" id=1]
+sky_top_color = Color( 1, 1, 1, 1 )
+sky_horizon_color = Color( 1, 1, 1, 1 )
+ground_bottom_color = Color( 0.894118, 0.894118, 0.894118, 1 )
+ground_horizon_color = Color( 0.917647, 0.917647, 0.917647, 1 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="LiveLinkFaceServer" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="Camera" type="Camera" parent="WorldEnvironment"]
+transform = Transform( 0.123116, 0, 0.992392, 0, 1, 0, -0.992392, 0, 0.123116, 19.8044, 1.24261, 2.69065 )
+fov = 11.1
+far = 158.2
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform( 0.0756714, 0.282409, 0.956305, 0.24751, 0.923719, -0.292372, -0.965926, 0.258819, 1.13133e-08, -107.97, 10.0077, -10.5307 )
+texture = ExtResource( 4 )
+
+[node name="duck" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.982326, -0.00494214, 0.18711, 0, 0.999651, 0.0264038, -0.187176, -0.0259371, 0.981984, 0, 0, 0 )
+script = ExtResource( 3 )
+
+[connection signal="data_updated" from="LiveLinkFaceServer" to="duck" method="_on_LiveLinkFaceServer_data_updated"]
+
+[editable path="duck"]

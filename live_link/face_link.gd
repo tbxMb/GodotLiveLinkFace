@@ -14,7 +14,9 @@ class Server:
 	func _init(_port: int):
 		port = _port
 		server = UDPServer.new()
-		server.listen(port)
+		var err = server.listen(port)
+		if err != OK:
+			push_error("failed to listen on port %d" % port)
 	
 	func stop():
 		server.stop()
@@ -26,10 +28,15 @@ class Server:
 		_unidentified_peers.clear()
 		
 	func listen():
-		server.listen(port)
+		var err = server.listen(port)
+		if err != OK:
+			push_error("failed to listen on port %d" % port)
 	
 	func poll():
-		server.poll()
+		print_stack()
+		
+		if server.poll() != OK:
+			push_error("failed to poll UDPServer")
 		
 		if server.is_connection_available():
 			var peer = server.take_connection()
@@ -48,7 +55,7 @@ class Server:
 				break
 			
 			for _i in range(packet_count-1):
-				peer.get_packet()
+				var _p = peer.get_packet()
 			
 			# Parse packet and identify peer
 			var packet: Packet = Packet.from_bytes(peer.get_packet())
@@ -95,8 +102,8 @@ class Server:
 			if packets_available == 0:
 				continue
 			
-			for i in range(packets_available-1):
-				client._connection.get_packet()
+			for _i in range(packets_available-1):
+				var _p = client._connection.get_packet()
 			
 			var packet: Packet = Packet.from_bytes(client._connection.get_packet())
 			
@@ -132,12 +139,12 @@ class Packet:
 		
 		if stream.get_size() - stream.get_position() > 0:
 			var blend_shape_count = stream.get_u8()
-			var blend_shapes = []
+			var _blend_shapes = []
 			
-			for i in range(0, blend_shape_count):
-				blend_shapes.append(stream.get_float())
+			for _i in range(0, blend_shape_count):
+				_blend_shapes.append(stream.get_float())
 			
-			obj.blend_shapes = PoolRealArray(blend_shapes)
+			obj.blend_shapes = PoolRealArray(_blend_shapes)
 		
 		return obj
 

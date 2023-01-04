@@ -5,7 +5,7 @@ extends Node
 signal data_updated(id, name, data)
 
 export var port: int = 11111
-export var use_threads: bool = true
+export var use_threads: bool = false
 
 var updated_client_ids: Array = []
 var server: LiveLinkFace.Server = null
@@ -21,7 +21,8 @@ func _ready():
 	_threads_enabled = use_threads
 	if _threads_enabled:
 		# Launch thread
-		thread.start(self, "poll_thread")
+		if thread.start(self, "poll_thread") != OK:
+			push_error("failed to start listener thread for LiveLinkFaceServer")
 
 func _process(_delta):
 	if _threads_enabled:
@@ -39,9 +40,9 @@ func emit_signals():
 	
 func poll_thread():
 	while true:
-		server_lock.try_lock()
-		server.poll()
-		server_lock.unlock()
+		if server_lock.try_lock() == OK:
+			server.poll()
+			server_lock.unlock()
 
 func on_data_updated(client: LiveLinkFace.Client):
 	updated_client_ids.append(client.id)

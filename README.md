@@ -6,14 +6,16 @@ A server to recieve facial motion capture data from [Live Link Face](https://app
 ![Screenshot of Debug Addon](doc/screenshot.png)
 
 ## Features
-* Multi threading
+* Multi threading (broken)
 * Support for multiple clients
 * Builtin debug addon
 * Get updates via signals
 * access to 61 blendshape values using members `client.values.head_roll`
 
 ## How to use
+See the [addon guide](doc/addon.md) for details about the editor plugin.
 To see how to use this library see the samples in the `examples` folder.
+Or look at the [api documentation](doc/api.md)
 If you want to know details about the protocol you can read [this](doc/proto.md)
 
 ## Credits
