@@ -1,0 +1,61 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "LiveLinkFace",
+"language": "GDScript",
+"path": "res://live_link/face_link.gd"
+}, {
+"base": "Node",
+"class": "LiveLinkFaceServer",
+"language": "GDScript",
+"path": "res://live_link/server.gd"
+}, {
+"base": "Reference",
+"class": "blendshape_map",
+"language": "GDScript",
+"path": "res://live_link/blendshape_keys.gd"
+} ]
+_global_script_class_icons={
+"LiveLinkFace": "",
+"LiveLinkFaceServer": "res://llf_icon.svg",
+"blendshape_map": ""
+}
+
+[application]
+
+config/name="Godot Live Link Face"
+config/icon="res://test/icon.png"
+
+[display]
+
+window/size/width=600
+window/size/height=1000
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/live_link_face_tool/plugin.cfg" )
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/depth_prepass/enable=false
+quality/filters/msaa=2
+quality/filters/use_fxaa=true
+quality/filters/use_debanding=true
+environment/default_environment="res://test/default_env.tres"
